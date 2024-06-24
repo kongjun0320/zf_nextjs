@@ -27,14 +27,17 @@ const users = [
   {
     id: 1,
     name: 'jack',
+    createdAt: new Date().toISOString(),
   },
   {
     id: 2,
     name: 'tom',
+    createdAt: new Date().toISOString(),
   },
   {
     id: 3,
     name: 'mike',
+    createdAt: new Date().toISOString(),
   },
 ];
 
@@ -56,6 +59,7 @@ app.get('/api/users/:id', (req, res) => {
 app.post('/api/register', (req, res) => {
   const user = req.body;
   user.id = Date.now() + '';
+  user.createdAt = new Date().toISOString();
   users.push(user);
   req.session.user = user;
   res.json({
