@@ -33,7 +33,7 @@ class LayoutApp extends App {
               <Link href="/">首页</Link>
             </li>
             <li>
-              <Link href="/user">用户管理</Link>
+              <Link href="/user/list">用户列表</Link>
             </li>
             <li>
               <Link href="/profile">个人中心</Link>
@@ -41,7 +41,7 @@ class LayoutApp extends App {
           </ul>
         </header>
         <RouteComponent {...pageProps} />
-        <footer style={{ textAlign: 'center' }}>ai_cherish</footer>
+        <footer style={{ textAlign: 'center' }}>footer</footer>
       </div>
     );
   }

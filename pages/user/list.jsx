@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import Layout from './index';
+import request from '@/utils/request';
 
 function UserList(props) {
   return (
@@ -17,17 +18,9 @@ function UserList(props) {
 
 // 在组件里定义好，然后在服务器端获取数据
 UserList.getInitialProps = async () => {
+  const response = await request.get('/api/users');
   return {
-    list: [
-      {
-        id: 1,
-        name: 'aic1',
-      },
-      {
-        id: 2,
-        name: 'aic2',
-      },
-    ],
+    list: response?.data?.data,
   };
 };
 
