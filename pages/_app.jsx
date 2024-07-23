@@ -16,7 +16,7 @@ class LayoutApp extends App {
   render() {
     const { Component: RouteComponent, pageProps } = this.props;
     return (
-      <div>
+      <div style={{ padding: '20px' }}>
         <style jsx>
           {`
             li {
@@ -26,7 +26,7 @@ class LayoutApp extends App {
             }
           `}
         </style>
-        <header>
+        <header style={{ borderBottom: '1px solid red', display: 'flex' }}>
           <img src="/images/kj.jpeg" className={styles.logo} />
           <ul>
             <li>
@@ -40,8 +40,18 @@ class LayoutApp extends App {
             </li>
           </ul>
         </header>
-        <RouteComponent {...pageProps} />
-        <footer style={{ textAlign: 'center' }}>footer</footer>
+        <div style={{ height: '200px' }}>
+          <RouteComponent {...pageProps} />
+        </div>
+        <footer
+          style={{
+            textAlign: 'center',
+            borderTop: '1px solid red',
+            backgroundColor: 'green',
+          }}
+        >
+          footer
+        </footer>
       </div>
     );
   }
