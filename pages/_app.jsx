@@ -5,7 +5,12 @@ import '../styles/global.css';
 import styles from './_app.module.css';
 
 class LayoutApp extends App {
+  constructor(props) {
+    super(props);
+    console.log('App constructor');
+  }
   static async getInitialProps({ Component, ctx }) {
+    console.log('App getInitialProps');
     let pageProps = {};
     if (Component.getInitialProps) {
       pageProps = await Component.getInitialProps(ctx);
@@ -14,6 +19,7 @@ class LayoutApp extends App {
   }
 
   render() {
+    console.log('App render');
     const { Component: RouteComponent, pageProps } = this.props;
     return (
       <div style={{ padding: '20px' }}>
@@ -40,11 +46,12 @@ class LayoutApp extends App {
             </li>
           </ul>
         </header>
-        <div style={{ height: '200px' }}>
+        <div style={{ height: '240px', padding: '20px' }}>
           <RouteComponent {...pageProps} />
         </div>
         <footer
           style={{
+            height: '44px',
             textAlign: 'center',
             borderTop: '1px solid red',
             backgroundColor: 'green',

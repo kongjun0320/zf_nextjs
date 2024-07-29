@@ -3,6 +3,7 @@ import Layout from './index';
 import request from '@/utils/request';
 
 function UserList(props) {
+  console.log('UserList render');
   return (
     <Layout>
       <ul>
@@ -18,6 +19,7 @@ function UserList(props) {
 
 // 在组件里定义好，然后在服务器端获取数据
 UserList.getInitialProps = async () => {
+  console.log('UserList getInitialProps');
   const response = await request.get('/api/users');
   return {
     list: response?.data?.data,
