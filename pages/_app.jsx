@@ -1,5 +1,6 @@
 import App from 'next/app';
 import Link from 'next/link';
+import router from 'next/router';
 import { Provider } from 'react-redux';
 import request from '@/utils/request';
 import createStore from '@/store';
@@ -30,7 +31,33 @@ class LayoutApp extends App {
     // 10. 通过服务器返回的状态创建客户端的仓库
     this.store = getStore(props.initialState);
     console.log('App constructor');
+    this.state = {
+      loading: false,
+    };
   }
+
+  routeChangeStart = () => {
+    this.setState({
+      loading: true,
+    });
+  };
+
+  routeChangeComplete = () => {
+    this.setState({
+      loading: false,
+    });
+  };
+
+  componentDidMount() {
+    router.events.on('routeChangeStart', this.routeChangeStart);
+    router.events.on('routeChangeComplete', this.routeChangeComplete);
+  }
+
+  componentWillUnmount() {
+    router.events.off('routeChangeStart', this.routeChangeStart);
+    router.events.off('routeChangeComplete', this.routeChangeComplete);
+  }
+
   static async getInitialProps({ Component, ctx }) {
     console.log('App getInitialProps');
     // 在后台执行的话，获取仓库，其实会创建新的仓库
@@ -59,7 +86,7 @@ class LayoutApp extends App {
     let pageProps = {};
     // 3. 在服务端执行的时候，把仓库的最新状态放在了属性对象的 initialState
     if (Component.getInitialProps) {
-      pageProps = await Component.getInitialProps(ctx);
+      pageProps = await Component.getInitialProps(ctx, store);
     }
     props.pageProps = pageProps;
 
@@ -111,7 +138,11 @@ class LayoutApp extends App {
           </ul>
         </header>
         <div style={{ height: '240px', padding: '20px' }}>
-          <RouteComponent {...pageProps} />
+          {this.state.loading ? (
+            <div>loading...</div>
+          ) : (
+            <RouteComponent {...pageProps} />
+          )}
         </div>
         <footer
           style={{
